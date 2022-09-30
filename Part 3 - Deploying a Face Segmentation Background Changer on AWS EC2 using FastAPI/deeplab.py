@@ -46,7 +46,7 @@ class DeepLabModel(object):
         #We resize the mask to match the original image
         mask = cv2.resize(mask, image.shape[:2][::-1])[:, :, np.newaxis]
         #We get the image size
-        x0, y0, c0 = image.shapeç
+        x0, y0, c0 = image.shape
         #If the query is "bokeh" we blur the background, if we get a different query we crawl google for an image
         if query != 'bokeh':
             #We create a folder to download the image. We need try-except if the folder already exists
@@ -55,11 +55,11 @@ class DeepLabModel(object):
             except:
                 pass
             #We run the crawler and download 1 image: https://pypi.org/project/icrawler/
-            google_crawler = GoogleImageCrawler(storage={'root_dir': f'/tmp/{query}'})
-            google_crawler.crawl(keyword=query, max_num=1)
+            google_crawler = GoogleImageCrawler(storage={'root_dir': f'{query}'})
+            google_crawler.crawl(keyword=query, max_num=10)
             #We load the saved image
-            background = cv2.imread(f'/tmp/{query}/000001.jpg')
-            #We get the background size
+            background = cv2.imread(f'{query}/000001.jpg')
+            #We get the background size:
             x, y, c = background.shape
             #We resize the background in order to match the original image but keeping aspect ratio
             new_x = x * y0 / y
