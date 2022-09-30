@@ -55,10 +55,10 @@ class DeepLabModel(object):
             except:
                 pass
             #We run the crawler and download 1 image: https://pypi.org/project/icrawler/
-            google_crawler = GoogleImageCrawler(storage={'root_dir': f'{query}'})
+            google_crawler = GoogleImageCrawler(storage={'root_dir': f'/tmp/{query}'})
             google_crawler.crawl(keyword=query, max_num=10)
             #We load the saved image
-            background = cv2.imread(f'{query}/000001.jpg')
+            background = cv2.imread(f'/tmp/{query}/000001.jpg')
             #We get the background size:
             x, y, c = background.shape
             #We resize the background in order to match the original image but keeping aspect ratio
